@@ -74,7 +74,7 @@ module ResqueUnit::Assertions
   end
 
   def matching_jobs(queue, klass, args = nil)
-    queue = Resque.queue(queue) if queue.is_a? Symbol
+    queue = Resque.queue(queue) unless queue.is_a? Array
     if args # retrieve the elements that match klass and args in the queue
       args = Resque.normalized_args(args)
       queue.select {|e| e[:klass] == klass && e[:args] == args}
